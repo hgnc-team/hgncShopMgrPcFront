@@ -146,7 +146,7 @@ export default {
     size: '布局大小'
   },
   login: {
-    title: '鹏鱼电商管理平台登录',
+    title: '鹏鱼电商商家登录',
     logIn: '登录',
     username: '账号',
     password: '密码',

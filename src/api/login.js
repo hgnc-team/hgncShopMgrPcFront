@@ -5,8 +5,9 @@ export function loginByUsername(name, pwd) {
     name,
     pwd
   }
+  // 直营店店长登录
   return request({
-    url: '/v1/api/user/adminLogin',
+    url: '/v1/api/user/sellerLogin',
     method: 'post',
     data
   })
@@ -34,4 +35,3 @@ export function refreshToken() {
     method: 'post'
   })
 }
-

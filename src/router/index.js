@@ -601,7 +601,8 @@ export const constantRouterMap = [
         meta: { title: '收银设备', icon: 'fa-ticket', noCache: true }
       }
     ]
-  }
+  },
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
@@ -609,5 +610,3 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
-
-export const asyncRouterMap = [{ path: '*', redirect: '/404', hidden: true }]

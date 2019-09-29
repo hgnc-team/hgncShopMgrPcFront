@@ -50,6 +50,12 @@ Vue.component('font-awesome-layers', FontAwesomeLayers)
 Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
 Vue.config.productionTip = false
+// import devtools from '@vue/devtools'
+
+// Vue.config.devtools = process.env.NODE_ENV === 'development'
+// if (process.env.NODE_ENV === 'development') {
+//   devtools.connect('localhost', 8899)
+// }
 
 new Vue({
   el: '#app',

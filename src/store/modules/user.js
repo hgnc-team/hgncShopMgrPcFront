@@ -25,9 +25,6 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
-    },
     SET_SETTING: (state, setting) => {
       state.setting = setting
     },
@@ -56,48 +53,41 @@ const user = {
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          commit('SET_NAME', data.user.phone) // 已手机号码，作为用户名
-          // 用户的id
-          commit('SET_ID', data.user.id)
-          setToken(response.data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        loginByUsername(username, userInfo.password)
+          .then(response => {
+            const data = response.data
+            commit('SET_TOKEN', data.token)
+            commit('SET_NAME', data.user.phone) // 已手机号码，作为用户名
+            // 用户的id
+            commit('SET_ID', data.user.id)
+            setToken(response.data.token)
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     // 获取用户信息,没有使用
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         // debugger
-        getUserInfo().then(response => {
-          // 由于mockjs 不支持自定义状态码只能这样hack
-          // if (!response.data) {
-          //   reject('Verification failed, please login again.')
-          // }
-          const data = response.data
-          // 此法判断是管理员登录
-          if (data.phone === 'admin') {
-            commit('SET_ROLES', ['admin'])
-          } else {
-            commit('SET_ROLES', [])
-          }
-          // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-          //   commit('SET_ROLES', data.roles)
-          // } else {
-          //   reject('getInfo: roles must be a non-null array!')
-          // }
-          commit('SET_NAME', data.phone)
-          commit('SET_ID', data.id)
-          // commit('SET_AVATAR', data.avatar)
-          // commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
+        getUserInfo()
+          .then(response => {
+            // 由于mockjs 不支持自定义状态码只能这样hack
+            // if (!response.data) {
+            //   reject('Verification failed, please login again.')
+            // }
+            const data = response.data
+            commit('SET_ROLES', [data.role])
+            commit('SET_NAME', data.phone)
+            commit('SET_ID', data.id)
+            // commit('SET_AVATAR', data.avatar) //  当前没有保存头像的功能
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
 
@@ -118,16 +108,18 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout().then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          commit('SET_NAME', '')
-          commit('SET_ID', '')
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        logout()
+          .then(() => {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            commit('SET_NAME', '')
+            commit('SET_ID', '')
+            removeToken()
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
 
@@ -164,7 +156,6 @@ const user = {
     //       commit('SET_ROLES', data.roles)
     //       commit('SET_NAME', data.name)
     //       commit('SET_AVATAR', data.avatar)
-    //       commit('SET_INTRODUCTION', data.introduction)
     //       dispatch('GenerateRoutes', data) // 动态修改权限后 重绘侧边菜单
     //       resolve()
     //     })

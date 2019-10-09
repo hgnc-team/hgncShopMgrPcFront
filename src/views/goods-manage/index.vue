@@ -2,62 +2,22 @@
   <el-container class="goods-manage-wrap contentwrapper">
     <el-main>
       <div>
-        <h3 class="heading">商品管理</h3>
+        <h3 class="heading">在售商品列表(SPU)</h3>
       </div>
 
       <el-form ref="mainSearchForm" :inline="true" :model="mainForm" label-width="0">
         <el-row :gutter="0" class="main-form-row">
           <el-col :span="12">
-            <!--全部/已上架/未上架/自营 begin-->
+            <!--出售中 begin-->
             <ul class="nav nav-pills py-nav">
               <li class="active">
                 <a href="javascript:void(0)">
-                  全部
-                  <span class="badge badge-info use-plugins-num">18</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)">
-                  已上架
-                  <span class="badge badge-info use-plugins-num">18</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)">
-                  未上架
-                  <span class="badge badge-info use-plugins-num">18</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)">
-                  自营
+                  出售中
                   <span class="badge badge-info use-plugins-num">18</span>
                 </a>
               </li>
             </ul>
-            <!--全部/已上架/未上架/自营 end-->
-          </el-col>
-          <el-col :span="12">
-            <el-form-item>
-              <el-input
-                v-model="mainForm.sellerKeyWord"
-                placeholder="请输入商家关键字"
-                size="mini"
-                clearable
-              />
-            </el-form-item>
-            <el-form-item>
-              <el-input
-                v-model="mainForm.goodsKeyWord"
-                placeholder="请输入商品关键字"
-                size="mini"
-                clearable
-              />
-            </el-form-item>
-
-            <el-form-item>
-              <el-button type="primary" size="mini">搜索</el-button>
-            </el-form-item>
+            <!--出售中 end-->
           </el-col>
         </el-row>
 
@@ -81,43 +41,6 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </el-form-item>
-            <el-form-item>
-              <el-select
-                v-model="mainForm.reviewStatus"
-                size="mini"
-                placeholder="请选择审核状态"
-                value-key="value"
-                clearable
-              >
-                <el-option
-                  v-for="item in preList.reviewStatusList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item>
-              <el-select
-                v-model="mainForm.seller"
-                size="mini"
-                placeholder="请选商家"
-                value-key="value"
-                clearable
-              >
-                <el-option
-                  v-for="item in preList.sellerList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item>
-              <el-button type="primary" size="mini">筛选</el-button>
-            </el-form-item>
           </el-col>
 
           <el-col :span="12">
@@ -125,14 +48,25 @@
               <cate-casecader :size="'mini'" :clearable="true" placeholder="请选择分类" />
             </el-form-item>
             <el-form-item>
-              <el-select v-model="mainForm.selectedBrand" placeholder="请选择品牌" size="mini" clearable>
+              <el-select v-model="mainForm.selectedType" size="mini" clearable>
                 <el-option
-                  v-for="item in preList.brandList"
+                  v-for="item in preList.typeList"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
                 />
               </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-input
+                v-model="mainForm.goodsKeyWord"
+                placeholder="请输入商品关键字"
+                size="mini"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" size="mini">搜索</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -223,74 +157,38 @@ export default {
       // 表格数据
       tableData: [],
       mainForm: {
-        // 审核状态
-        reviewStatus: {
-          value: '-1',
-          label: '请选择审核状态'
-        },
-        // 商家
-        seller: {
-          value: '-1',
-          label: '请选择商家'
-        },
         // 批量操作
         batchOp: {
           value: '-1',
           label: '批量操作',
           icon: ''
         },
-        // 商家关键字
-        sellerKeyWord: '',
         // 商品关键字
         goodsKeyWord: '',
-        // 品牌
-        selectedBrand: ''
+        selectedType: '0'
       },
       preList: {
-        // 选择审核状态预置选项
-        reviewStatusList: [
+        // 营销分类列表
+        typeList: [
           {
             value: '0',
-            label: '未审核'
+            label: '全部'
           },
           {
             value: '1',
-            label: '审核未通过'
+            label: '精品'
           },
           {
             value: '2',
-            label: '已审核'
+            label: '新品'
           },
           {
             value: '3',
-            label: '无需审核'
-          }
-        ],
-        // 选择商家预置选项
-        sellerList: [
-          {
-            value: '0',
-            label: '天天果园'
-          },
-          {
-            value: '1',
-            label: '测试入住店铺'
+            label: '热销'
           }
         ],
         // 批量操作列表（可用）
         batchOpList: [
-          {
-            value: '0',
-            label: '移至回收站',
-            iconType: 'fas',
-            icon: 'archive'
-          },
-          {
-            value: '1',
-            label: '上架',
-            iconType: 'fas',
-            icon: 'arrow-alt-circle-up'
-          },
           {
             value: '2',
             label: '下架',
@@ -340,51 +238,10 @@ export default {
             icon: 'share'
           },
           {
-            value: '10',
-            label: '审核通过',
-            iconType: 'fas',
-            icon: 'check-circle'
-          },
-          {
-            value: '11',
-            label: '审核未通过',
-            iconType: 'fas',
-            icon: 'times-circle'
-          },
-          {
-            value: '12',
-            label: '设为未审核',
-            iconType: 'fas',
-            icon: 'question-circle'
-          },
-          {
-            value: '13',
-            label: '无需审核',
-            iconType: 'fas',
-            icon: 'dot-circle'
-          }
-        ],
-        // 品牌列表
-        brandList: [
-          {
             value: '0',
-            label: '尤妮佳'
-          },
-          {
-            value: '1',
-            label: '香奈儿'
-          },
-          {
-            value: '2',
-            label: 'SKII'
-          },
-          {
-            value: '3',
-            label: '华为'
-          },
-          {
-            value: '4',
-            label: '海尔'
+            label: '移至回收站',
+            iconType: 'fas',
+            icon: 'archive'
           }
         ]
       }

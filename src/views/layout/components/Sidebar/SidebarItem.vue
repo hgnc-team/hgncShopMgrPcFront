@@ -1,17 +1,29 @@
 <template>
   <div v-if="!item.hidden" class="menu-wrapper">
-
-    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-      <app-link :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="generateTitle(onlyOneChild.meta.title)" />
+    <template
+      v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow"
+    >
+      <app-link :to="resolvePath(onlyOneChild.path)" class="app-link-no-underline">
+        <el-menu-item
+          :index="resolvePath(onlyOneChild.path)"
+          :class="{'submenu-title-noDropdown':!isNest}"
+        >
+          <item
+            v-if="onlyOneChild.meta"
+            :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
+            :title="generateTitle(onlyOneChild.meta.title)"
+          />
         </el-menu-item>
       </app-link>
     </template>
 
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)">
       <template slot="title">
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="generateTitle(item.meta.title)" />
+        <item
+          v-if="item.meta"
+          :icon="item.meta && item.meta.icon"
+          :title="generateTitle(item.meta.title)"
+        />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -19,9 +31,9 @@
         :item="child"
         :key="child.path"
         :base-path="resolvePath(child.path)"
-        class="nest-menu" />
+        class="nest-menu"
+      />
     </el-submenu>
-
   </div>
 </template>
 
@@ -77,7 +89,7 @@ export default {
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        this.onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
         return true
       }
 
@@ -94,3 +106,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.app-link-no-underline {
+  text-decoration: none !important;
+}
+</style>

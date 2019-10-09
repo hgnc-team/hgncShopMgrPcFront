@@ -47,7 +47,17 @@
           <li>
             <router-link
               :to="{name:'prodEditIndex', params: data, query: {tabIndex: 2, prodId: data.id}}"
-            >商品属性</router-link>
+            >商品描述</router-link>
+          </li>
+          <li>
+            <router-link
+              :to="{name:'prodEditIndex', params: data, query: {tabIndex: 3, prodId: data.id}}"
+            >商品参数</router-link>
+          </li>
+          <li>
+            <router-link
+              :to="{name:'prodEditIndex', params: data, query: {tabIndex: 3, prodId: data.id}}"
+            >规格/货品</router-link>
           </li>
           <li>
             <router-link
@@ -68,7 +78,7 @@
             <a href="jvascript:void(0)">预览</a>
           </li>
           <li>
-            <a href="jvascript:void(0)">导入商品库</a>
+            <a href="jvascript:void(0)">内部链接</a>
           </li>
           <li>
             <a href="jvascript:void(0)" class="py-text-danger" @click="fakeDel(data)">删除</a>

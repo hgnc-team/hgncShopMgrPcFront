@@ -15,21 +15,6 @@ export default [
     isRowMenuWrapCell: false
   },
   {
-    prop: 'sellerName',
-    name: '商家名称',
-    type: 'text',
-    linkColor: 'danger',
-    editable: false,
-    sortable: false
-  },
-  {
-    prop: 'reviewStatus',
-    name: '审核',
-    type: 'select',
-    editable: true,
-    sortable: false
-  },
-  {
     prop: 'goodsNo',
     name: '货号',
     type: 'input',

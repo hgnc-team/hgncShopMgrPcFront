@@ -2,7 +2,7 @@
 <template>
   <!-- eslint-disable vue/require-component-is -->
   <component v-bind="linkProps(to)">
-    <slot/>
+    <slot />
   </component>
 </template>
 
@@ -34,3 +34,5 @@ export default {
   }
 }
 </script>
+<style lang="scss" >
+</style>

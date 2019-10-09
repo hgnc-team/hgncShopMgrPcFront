@@ -3,7 +3,7 @@
     <el-main>
       <div class="kanban-wrap">
         <div class="header-row">
-          <el-row gutter="10">
+          <el-row :gutter="10">
             <el-col :span="3">
               <img src="public/img/merchant_dashboard/test_shop_logo.jpg" class="shop-logo" />
             </el-col>

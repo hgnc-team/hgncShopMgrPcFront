@@ -61,7 +61,7 @@
         "redux": "^4.0.4",
         "redux-thunk": "^2.3.0",
         "screenfull": "4.0.0",
-        "showdown": "1.8.6",
+        "showdown": "1.9.1",
         "sortablejs": "1.7.0",
         "tui-editor": "1.2.7",
         "v-charts": "^1.19.0",
